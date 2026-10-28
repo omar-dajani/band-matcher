@@ -1,0 +1,31 @@
+_ > nanoagent.plugin.v0001.ManifestConfig:
+id: lsh-band-matcher
+name: LSH Band Matcher
+version: 0.1.0
+status: ready
+spec: nanoagent.plugin/v0001
+
+runtime > nanoagent.plugin.v0001.RuntimeConfig:
+  type: mcp_stdio
+  command: [uv, run, --frozen, python, -m, plugin]
+
+permissions > nanoagent.plugin.v0001.PermissionsConfig:
+  network > nanoagent.plugin.v0001.NetworkConfig:
+    hosts: []
+  filesystem > nanoagent.plugin.v0001.FilesystemConfig:
+    write: [workspace]
+
+tools > dict[contract.Tool, nanoagent.plugin.v0001.ToolConfig]:
+  match_bands:
+    description: Cut each MinHash signature into bands of rows, hash every band to a bucket ID, and list the documents that share a bucket with the query in any band
+
+tasks > dict[contract.Task, nanoagent.plugin.v0001.TaskConfig]:
+  find-lsh-candidates:
+    description: Find the documents that collide with a query signature
+    runner: agent
+    tools: [match_bands]
+    reference: null
+    instructions: |-
+      The request holds the indexed documents' MinHash signatures, a query signature, and the band layout: bands and rows. Call match_bands once with exactly those values, then submit its output unchanged.
+      A document is a candidate when its bucket equals the query's in at least one band. Do not add, remove, reorder or recompute any bucket or pair yourself.
+      If match_bands reports an error, such as a signature that is not bands * rows long, end without submitting.

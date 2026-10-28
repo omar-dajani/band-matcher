@@ -1,0 +1,11 @@
+_ > nanoagent.plugin.v0001.ProductConfig:
+tagline: "Find look-alike documents with LSH bands"
+summary: "Give it MinHash signatures for your documents and for a query, plus a band layout of b bands of r rows. Each band is hashed to a bucket, and every document that lands in the same bucket as the query in any band is returned as a candidate."
+highlights:
+  - "Buckets are fixed hashes of the band, so the same signatures always give the same buckets"
+  - "Shows which bands collided, not just that something did"
+  - "Rejects signatures whose length is not bands times rows"
+steps:
+  - "Provide the document signatures, the query signature, bands and rows"
+  - "Each signature is cut into bands and each band is hashed to a bucket ID"
+  - "Documents sharing a bucket with the query come back as candidates"
