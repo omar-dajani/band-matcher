@@ -1,0 +1,10 @@
+LICENSE
+pyproject.toml
+src/nanoagent_lsh_band_matcher.egg-info/PKG-INFO
+src/nanoagent_lsh_band_matcher.egg-info/SOURCES.txt
+src/nanoagent_lsh_band_matcher.egg-info/dependency_links.txt
+src/nanoagent_lsh_band_matcher.egg-info/requires.txt
+src/nanoagent_lsh_band_matcher.egg-info/top_level.txt
+src/plugin/__init__.py
+src/plugin/__main__.py
+src/plugin/bands.py
